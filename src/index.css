@@ -1,3 +1,14 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +21,275 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Dongle-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108_2@1.0/Dongle-Regular.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BMJUA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BMHANNAPro';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 700;
+  src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.eot);
+  src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.eot?#iefix)
+      format('embedded-opentype'),
+    url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.woff2)
+      format('woff2'),
+    url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.woff)
+      format('woff'),
+    url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.ttf)
+      format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.eot);
+  src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.eot?#iefix)
+      format('embedded-opentype'),
+    url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.woff2)
+      format('woff2'),
+    url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.woff)
+      format('woff'),
+    url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.ttf)
+      format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 800;
+  src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-ExtraBold.eot);
+  src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-ExtraBold.eot?#iefix)
+      format('embedded-opentype'),
+    url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-ExtraBold.woff2)
+      format('woff2'),
+    url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-ExtraBold.woff)
+      format('woff'),
+    url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-ExtraBold.ttf)
+      format('truetype');
+}
+
+/* popup */
+.modal {
+  background-color: rgb(0, 0, 0, 0.7);
+  position: fixed;
+  inset: 0px;
+  z-index: 9998;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bpopup {
+  display: block;
+  border: 8px solid #ff9a9a;
+  border-radius: 14px;
+  background: #fff;
+  padding: 50px;
+  box-sizing: border-box;
+  z-index: 9999;
+  opacity: 1;
+  position: relative;
+}
+.bpopup.popMid {
+  width: 600px;
+}
+.bpopup.popBig {
+  width: 1000px;
+}
+.bpopup .popClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  display: block;
+  width: 54px;
+  height: 54px;
+  border-radius: 100%;
+  background: #ff9a9a url(../public/image/ico_close.png) no-repeat center;
+  z-index: 1;
+}
+
+.backArrow {
+  background: white url(../public/image/arrow-left-line.png) no-repeat center;
+  z-index: 1;
+}
+.plus {
+  width: 35px;
+  height: 35px;
+  background: rgba(0, 0, 0, 0.5) url(../public/image/add-line.png) no-repeat
+    center;
+  z-index: 10;
+}
+.check {
+  width: 35px;
+  height: 35px;
+  background: rgba(140, 211, 255, 0.5) url(../public/image/check-line.png)
+    no-repeat center;
+  z-index: 10;
+}
+.delete {
+  width: 24px;
+  height: 24px;
+  background: white url(../public/image/close-circle-fill.png) no-repeat center;
+  z-index: 10;
+}
+.menu {
+  width: 24px;
+  height: 24px;
+  background: white url(../public/image/menu-line.png) no-repeat center;
+  z-index: 10;
+}
+.search {
+  width: 24px;
+  height: 24px;
+  background: white url(../public/image/search-line.png) no-repeat center;
+  z-index: 10;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab {
+  padding: 10px 10px 10px 3px;
+  border-bottom: 2px solid #ff9a9a;
+  border-left: medium solid #ff9a9a;
+  border-top: 2px solid #ff9a9a;
+  cursor: pointer;
+  border-color: #ff9a9a;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  margin-left: 10px;
+  font-family: BMJUA;
+}
+
+.tab:hover {
+  transform: scale(1.1);
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+}
+
+.tab-content > div {
+  display: none;
+}
+
+.tab-content > div.active {
+  display: block;
+}
+#active-white-bg {
+  background-color: white;
+}
+
+.active {
+  background-color: #ff9a9a;
+  margin-left: 0px;
+}
+
+.active .contentBox {
+  background-color: white;
+  height: 100%;
+}
+
+/* 표 */
+table {
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+tbody {
+  display: flex;
+}
+
+th {
+  display: block;
+  color: #ed661a;
+  font-family: BMJUA;
+  width: 100px;
+  text-align: left;
+}
+
+td {
+  display: block;
+  font-family: 'Nanum Gothic';
+  text-align: left;
+}
+
+.header-center {
+  text-align: center;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.select-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.day-select {
+  width: 150px;
+  padding: 10px;
+  border: 2px solid #ff9a9a;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='38' viewBox='0 0 24 24' width='38' xmlns='http://www.w3.org/2000/svg'><path d='M0 0h24v24H0z' fill='none'/><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 5px;
+  font-weight: bold;
+}
+
+.day-select:focus {
+  outline: none;
+  border-color: #ff6868;
 }
