@@ -2,7 +2,7 @@ import React from 'react';
 
 const Main: React.FC = () => {
   return (
-    <div className="w-full h-[85%] flex justify-center items-center">
+    <div className="w-full h-[90%] flex justify-center items-center">
       <div className="container w-[100%] h-[80%] flex flex-col justify-center items-center">
         <div className="flex flex-col justify-center w-1/2 text-left text-2xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-6xl font-['BMHANNAPro']">
           <p className="text-main-red-color ">국내 여행을</p>
