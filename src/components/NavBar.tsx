@@ -24,13 +24,13 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <nav className="h-[15%] bg-white border-gray-200">
+    <nav className="h-[10%] bg-white border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <span className="self-center text-5xl font-Dongle-Regular whitespace-nowrap text-main-green-color">
+          <span className="self-center text-3xl font-Dongle-Regular whitespace-nowrap text-main-green-color">
             나들이
           </span>
         </Link>
@@ -68,15 +68,6 @@ const NavBar: React.FC = () => {
                     className="py-4 px-3 item-center text-main-green-color font-BMJUA"
                   >
                     게시판
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/traveldes"
-                    state={{ curr: 'tour' }}
-                    className="py-4 px-3 item-center text-main-green-color font-BMJUA"
-                  >
-                    여행지
                   </Link>
                 </li>
                 <li>
