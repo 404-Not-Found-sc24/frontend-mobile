@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState, useRef } from 'react';
 import axios, { AxiosError } from 'axios';
 import Map from '../components/Map';
 import '../index.css';
@@ -27,6 +27,7 @@ const EditDiary: React.FC = () => {
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const ALLOW_FILE_EXTENSION = 'jpg,jpeg,png';
   const FILE_SIZE_MAX_LIMIT = 1 * 1024 * 1024;
+  const imageInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     return () => {
@@ -38,12 +39,12 @@ const EditDiary: React.FC = () => {
 
   const initialMarkers = PlanData
     ? [
-        {
-          placeId: PlanData.placeId,
-          latitude: PlanData.latitude,
-          longitude: PlanData.longitude,
-        },
-      ]
+      {
+        placeId: PlanData.placeId,
+        latitude: PlanData.latitude,
+        longitude: PlanData.longitude,
+      },
+    ]
     : [];
 
   const initialCenter = PlanData
@@ -167,97 +168,104 @@ const EditDiary: React.FC = () => {
     window.history.back();
   };
 
+
+  const onClickImageUplaod = () => {
+    if (imageInput.current) {
+      imageInput.current.click();
+    }
+  }
+
+
   return (
-    <div className="w-full h-[90%] flex">
-      <div className="w-1/2 h-full flex-col">
-        <ToastContainer />
-        <div className="h-[8%] flex flex-row">
-          <div
-            className="backArrow cursor-pointer w-[10%] h-full"
-            onClick={handleBackButtonClick}
-            role="button"
-            tabIndex={0}
-          ></div>
-          <div className="font-['Nanum Gothic'] font-bold text-xl flex w-[90%] h-full items-center">
-            {PlanData.locationName}
-          </div>
+    <div className="w-full h-[90%] flex flex-col">
+      <ToastContainer />
+      <div className="h-[8%] flex flex-row">
+        <div
+          className="backArrow cursor-pointer w-[10%] h-full"
+          onClick={handleBackButtonClick}
+          role="button"
+          tabIndex={0}
+        ></div>
+        <div className="font-['Nanum Gothic'] font-bold text-xl flex w-[90%] h-full items-center">
+          {PlanData.locationName}
         </div>
-        <div className="px-5 pb-5 flex flex-col items-center h-[92%]">
-          <div className="flex w-full border h-[30%] justify-center items-center">
-            <div className="relative w-[70%] h-[90%] flex justify-center items-center border border-gray-300 rounded-md">
-              {showUploadMessage ? (
-                <div className="text-gray-500">사진을 업로드 해주세요</div>
-              ) : (
-                <div className="relative w-full h-full flex justify-center items-center">
+      </div>
+      <div className="px-5 pb-5 flex flex-col items-center h-[92%]">
+        <div className="flex w-full border justify-center items-center p-1">
+          <div className="w-[70%] h-[90%] flex justify-center items-center flex-col">
+            {showUploadMessage ? (
+              <div className="flex justify-center items-center w-[70%] h-[90%] mb-2 border border-gray-300 rounded-md">
+                등록된 사진이 없습니다.
+              </div>
+            ) : (
+              <div className='flex justify-center flex-col border border-gray-300 rounded-md mb-2'>
+                <div className=" flex justify-center items-center">
                   <img
                     src={previewImages[currentImageIndex] || 'placeholder.png'}
                     alt={`Image preview ${currentImageIndex}`}
                     className="w-full h-full object-cover"
                   />
                 </div>
-              )}
-            </div>
-          </div>
-          <div className="w-full my-2 shadow-xl border p-5 h-[50%]">
-            <div className="flex flex-row xl:flex w-full font-BMJUA h-[20%] justify-between">
-              <div className="flex items-center h-full">
-                일기 제목 :
-                <input
-                  type="text"
-                  placeholder="일기 제목"
-                  value={title}
-                  onChange={handleTitleChange}
-                  className="2xl:w-72 w-36  p-2 mx-2 my-2 border-2 border-main-red-color rounded-md"
-                />
               </div>
-              <div className="flex items-center h-full">
-                날씨 :
-                <select
-                  onChange={(e) => setWeather(e.target.value)}
-                  value={weather}
-                  className="2xl:w-32 w-20  p-2 mx-2 my-2 border-2 border-main-red-color rounded-md"
-                >
-                  <option value="맑음">맑음</option>
-                  <option value="구름">구름</option>
-                  <option value="비">비</option>
-                  <option value="눈">눈</option>
-                  <option value="바람">바람</option>
-                </select>
-              </div>
-            </div>
-            <div className="mt-2 font-BMJUA h-[80%] w-full">
-              일기 내용 :
-              <textarea
-                placeholder="일기 내용"
-                value={content}
-                onChange={handleContentChange}
-                className="w-full p-2 my-2  border-2 border-main-red-color rounded-md h-[80%]"
-                rows={5}
-              />
-            </div>
-          </div>
-          <input
-            type="file"
-            multiple
-            onChange={handleImageChange}
-            className="w-full p-2 my-2  border-2 border-main-red-color rounded-md h-[10%]"
-          />
-          <div className="mt-4 flex justify-end w-full w-[10%]">
-            <button
-              onClick={handleSubmit}
-              className="px-4 py-2 bg-main-red-color text-white rounded-md"
-            >
-              일기 수정
-            </button>
+            )}
+            <button className="bg-main-red-color opacity-75 rounded text-white py-1 px-3 text-sm font-BMJUA" onClick={onClickImageUplaod}>사진 변경</button>
+            <input
+              type="file"
+              multiple
+              accept="image/jpg, image/png, image/jpeg"
+              onChange={handleImageChange}
+              className="hidden w-full p-2 my-2  border-2 border-main-red-color rounded-md h-[10%]"
+              ref={imageInput}
+            />
           </div>
         </div>
+        <div className="w-full my-2 shadow-xl border p-5 h-[50%]">
+          <div className="flex flex-row xl:flex w-full font-BMJUA h-[20%] justify-between">
+            <div className="flex items-center h-full text-xs w-3/5">
+              일기 제목 :
+              <input
+                type="text"
+                placeholder="일기 제목"
+                value={title}
+                onChange={handleTitleChange}
+                className="font-xs w-[60%] p-2 mx-1 my-1 border-2 border-main-red-color rounded-md"
+              />
+            </div>
+            <div className="flex items-center h-full text-xs w-2/5">
+              날씨 :
+              <select
+                onChange={(e) => setWeather(e.target.value)}
+                value={weather}
+                className="w-[60%] p-2 mx-1 my-1 border-2 border-main-red-color rounded-md"
+              >
+                <option value="맑음">맑음</option>
+                <option value="구름">구름</option>
+                <option value="비">비</option>
+                <option value="눈">눈</option>
+                <option value="바람">바람</option>
+              </select>
+            </div>
+          </div>
+          <div className="mt-2 font-BMJUA h-[80%] text-xs w-full">
+            일기 내용 :
+            <textarea
+              placeholder="일기 내용"
+              value={content}
+              onChange={handleContentChange}
+              className="w-full p-2 my-2  border-2 text-xs border-main-red-color rounded-md h-[85%]"
+              rows={5}
+            />
+          </div>
+        </div>
+        <div className="mt-4 flex justify-end w-full w-[10%]">
+          <button
+            onClick={handleSubmit}
+            className="px-4 py-2 bg-main-red-color text-white text-xs font-BMJUA rounded-md"
+          >
+            일기 수정
+          </button>
+        </div>
       </div>
-      <MapProvider
-        initialMarkers={initialMarkers}
-        initialCenter={initialCenter}
-      >
-        <Map />
-      </MapProvider>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState, useRef} from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState, useRef } from 'react';
 import axios, { AxiosError } from 'axios';
 import Map from '../components/Map';
 import '../index.css';
@@ -171,11 +171,12 @@ const MakeDiary: React.FC = () => {
       prevIndex === previewImages.length - 1 ? 0 : prevIndex + 1,
     );
   };
+
   const onClickImageUplaod = () => {
     if (imageInput.current) {
-        imageInput.current.click();
+      imageInput.current.click();
     }
-}
+  }
 
   return (
     <div className="w-full h-[90%] flex flex-col">
@@ -192,28 +193,33 @@ const MakeDiary: React.FC = () => {
         </div>
       </div>
       <div className="px-5 pb-5 flex flex-col items-center h-[92%]">
-        <div className="flex w-full border h-[30%] justify-center">
-          <div className="flex h-full w-full items-center justify-center">
-            {showUploadMessage && (
-              <div className="flex justify-center items-center w-[70%] h-[90%] border border-gray-300 rounded-md">
-                <button className="text-gray-500" onClick={onClickImageUplaod}>+</button>
-                <input
-                  type="file"
-                  multiple
-                  accept="image/jpg, image/png, image/jpeg"
-                  onChange={handleImageChange}
-                  className="hidden w-full p-2 my-2  border-2 border-main-red-color rounded-md h-[10%]"
-                  ref={imageInput}
-                />
+        <div className="flex w-full border justify-centeritems-center p-1">
+          <div className="flex h-full w-full items-center justify-center flex-col">
+            {showUploadMessage ? (
+              <div className="flex justify-center items-center w-[70%] h-36 mb-2 border border-gray-300 rounded-md">
+                등록된 사진이 없습니다.
+              </div>
+            ) : (
+              <div className='flex justify-center flex-col border border-gray-300 rounded-md mb-2'>
+                <div className=" flex justify-center items-center">
+                  <img
+                    src={previewImages[currentImageIndex] || 'placeholder.png'}
+                    alt={`Image preview ${currentImageIndex}`}
+                    className="w-[70%] object-cover h-[90%]"
+                  />
+                </div>
               </div>
             )}
-            {!showUploadMessage && (
-              <img
-                src={previewImages[currentImageIndex] || 'placeholder.png'}
-                alt={`Image preview ${currentImageIndex}`}
-                className="w-[70%] object-cover h-[90%]"
-              />
-            )}
+
+            <button className="bg-main-red-color opacity-75 rounded text-white py-1 px-3 text-sm font-BMJUA" onClick={onClickImageUplaod}>사진 등록</button>
+            <input
+              type="file"
+              multiple
+              accept="image/jpg, image/png, image/jpeg"
+              onChange={handleImageChange}
+              className="hidden w-full p-2 my-2  border-2 border-main-red-color rounded-md h-[10%]"
+              ref={imageInput}
+            />
           </div>
         </div>
         <div className="w-full my-2 shadow-xl border p-5 h-[70%]">
