@@ -120,11 +120,11 @@ const SignUp: React.FC = () => {
       validateOnMount={true}
     >
       {({ values, handleSubmit, handleChange, setFieldValue, errors }) => (
-        <div className="max-w-sm mx-auto mt-8">
+        <div className="max-w-sm mx-auto mt-8 w-5/6">
           <ToastContainer />
           <form onSubmit={handleSubmit} autoComplete="off">
             <div className="mb-4">
-              <label htmlFor="name" className="block mb-1">
+              <label htmlFor="name" className="block mb-1 text-sm">
                 이름
               </label>
               <input
@@ -133,12 +133,12 @@ const SignUp: React.FC = () => {
                 type="name"
                 value={values.name}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                className="w-full p-1 border rounded text-sm"
               />
               <div className="text-red-500">{errors.name}</div>
             </div>
             <div className="mb-4">
-              <label htmlFor="nickname" className="block mb-1">
+              <label htmlFor="nickname" className="block mb-1 text-sm">
                 닉네임
               </label>
               <input
@@ -147,12 +147,12 @@ const SignUp: React.FC = () => {
                 type="text"
                 value={values.nickname}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                className="w-full p-1 border rounded text-sm"
               />
               <div className="text-red-500">{errors.nickname}</div>
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="block mb-1">
+              <label htmlFor="email" className="block mb-1 text-sm">
                 이메일
               </label>
               <input
@@ -161,12 +161,12 @@ const SignUp: React.FC = () => {
                 type="email"
                 value={values.email}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                className="w-full p-1 border rounded text-sm"
               />
               <div className="text-red-500">{errors.email}</div>
             </div>
             <div className="mb-4">
-              <label htmlFor="phone" className="block mb-1">
+              <label htmlFor="phone" className="block mb-1 text-sm">
                 전화번호
               </label>
               <input
@@ -177,12 +177,12 @@ const SignUp: React.FC = () => {
                 onChange={(e) => {
                   setFieldValue('phone', formatPhoneNumber(e.target.value));
                 }}
-                className="w-full p-2 border rounded"
+                className="w-full p-1 border rounded"
               />
               <div className="text-red-500">{errors.phone}</div>
             </div>
             <div className="mb-4">
-              <label htmlFor="password" className="block mb-1">
+              <label htmlFor="password" className="block mb-1 text-sm">
                 비밀번호
               </label>
               <input
@@ -191,14 +191,14 @@ const SignUp: React.FC = () => {
                 type="password"
                 value={values.password}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                className="w-full p-1 border rounded text-sm"
               />
               <div className="text-red-500">{errors.password}</div>
             </div>
             <button
               type="submit"
               disabled={loading}
-              className={`w-full p-2 bg-blue-500 text-white rounded ${
+              className={`w-full p-1 bg-blue-500 text-white rounded ${
                 loading ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >

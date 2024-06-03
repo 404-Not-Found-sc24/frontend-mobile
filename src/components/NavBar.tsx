@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const NavBar: React.FC = () => {
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
@@ -23,8 +24,13 @@ const NavBar: React.FC = () => {
     });
   };
 
+  // Close the menu when the location changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
+
   return (
-    <nav className="h-[10%] bg-white border-gray-200">
+    <nav className="h-[10%] bg-white border-gray-200 relative z-50">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           to="/"
@@ -55,61 +61,64 @@ const NavBar: React.FC = () => {
             ></path>
           </svg>
         </button>
-        <div
-          className={`${isOpen ? 'block' : 'hidden'} w-full md:block md:w-auto`}
-          id="navbar-default"
-        >
-          <ul className="font-5xl flex flex-col md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white items-center">
-            {isAuthenticated ? (
-              <>
-                <li>
-                  <Link
-                    to="/event"
-                    className="py-4 px-3 item-center text-main-green-color font-BMJUA"
-                  >
-                    게시판
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/mypage"
-                    className="py-4 px-3 item-center text-main-green-color font-BMJUA"
-                  >
-                    마이페이지
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/"
-                    onClick={handleLogout}
-                    className="py-2 px-3 border-2 border-white hover:border-main-green-color text-main-green-color font-BMJUA"
-                  >
-                    로그아웃
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link
-                    to="/signup"
-                    className="py-2 px-3 md:p-0 text-main-green-color font-BMJUA"
-                  >
-                    회원가입
-                  </Link>
-                </li>
-                <li className="flex-shrink-0">
-                  <Link
-                    to="/signin"
-                    className="py-2 px-3 border-2 border-white hover:border-main-green-color text-main-green-color font-BMJUA"
-                  >
-                    로그인
-                  </Link>
-                </li>
-              </>
-            )}
-          </ul>
-        </div>
+      </div>
+      {isOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={toggleMenu}></div>
+      )}
+      <div
+        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-xl transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-50`}
+        id="navbar-default"
+      >
+        <ul className="flex flex-col mt-10 items-start pl-4">
+          {isAuthenticated ? (
+            <>
+              {/* <li>
+                <Link
+                  to="/event"
+                  className="py-4 px-3 item-center text-main-green-color font-BMJUA"
+                >
+                  게시판
+                </Link>
+              </li> */}
+              <li>
+                <Link
+                  to="/mypage"
+                  className="py-4 px-3 item-center text-main-green-color font-BMJUA"
+                >
+                  마이페이지
+                </Link>
+              </li>
+              <li> 
+                <Link
+                  to="/"
+                  onClick={handleLogout}
+                  className="py-2 px-3 border-2 border-white hover:border-main-green-color text-main-green-color font-BMJUA"
+                >
+                  로그아웃
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link
+                  to="/signup"
+                  className="py-2 px-3 md:p-0 text-main-green-color font-BMJUA"
+                >
+                  회원가입
+                </Link>
+              </li>
+              <li className="flex-shrink-0">
+                <Link
+                  to="/signin"
+                  className="py-2 px-3 border-2 border-white hover:border-main-green-color text-main-green-color font-BMJUA"
+                >
+                  로그인
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
       </div>
     </nav>
   );
