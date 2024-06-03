@@ -161,48 +161,53 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
   return (
     <div
-      className="w-full flex p-5 h-44 shadow-md"
+      className="w-full flex p-2 h-30 shadow-md"
       onClick={() => handleScheduleClick(data)}
     >
       <div className="flex w-full">
-        <div className="w-60 h-full mr-5">
+        <div className="w-45 h-full mr-2">
           {imageUrl !== null ? (
             <img src={imageUrl} alt="" className="h-full w-full"></img>
           ) : (
-              <img src={process.env.PUBLIC_URL + '/image/logo.png'} className='h-full w-full'></img>
+            <img src={process.env.PUBLIC_URL + '/image/logo.png'} className='h-full max-w-full'></img>
           )}
         </div>
         <div className="flex flex-col w-full">
-          <div className="flex flex-row">
-            <div className="text-main-red-color text-xl font-bold w-20 mr-5">
+          <div className="flex flex-row justify-between mb-1">
+            <div className="text-main-red-color text-md font-bold w-20 mr-5font-['BMJUA']">
               {differenceInDays !== undefined &&
                 (differenceInDays === 0
                   ? 'D-Day'
                   : `D${differenceInDays > 0 ? '+' : '-'}${Math.abs(
-                      differenceInDays,
-                    )}`)}
+                    differenceInDays,
+                  )}`)}
             </div>
-
-            <div className="text-xl flex-grow">{location}</div>
-            <div className="text-xl w-20">
-              <button onClick={handleShare} className='hover:font-bold'>
+            <div className="text-md w-15">
+              <button onClick={handleShare} className="hover:font-bold font-['BMJUA']">
                 {share == 1 ? 'PUBLIC' : 'PRIVATE'}
               </button>
             </div>
           </div>
-          <div className="flex flex-grow items-center justify-start">
-            <div className="text-3xl font-bold">{name}</div>
+          <div className="flex items-center justify-start">
+            <div className="text-sm flex-grow font-['BMJUA']">{location}</div>
+          </div>
+          <div className="flex flex-grow items-center justify-start my-2">
+            <div className="text-lg font-bold font-['BMJUA'] overflow-hidden whitespace-nowrap overflow-ellipsis">
+              {name.length > 8 ? `${name.substring(0, 8)}...` : name}
+            </div>
           </div>
           <div className="flex justify-between">
-            <div className="texl-lg font-medium">
-              {startDate} ~ {endDate}
+            <div className="text-sm font-['BMJUA']">
+              {startDate} <br />~ {endDate}
             </div>
-            <img
-              src={`${process.env.PUBLIC_URL}/image/recycle-bin.png`}
-              alt="휴지통"
-              className="w-5 h-5 text-main-red-color cursor-pointer"
-              onClick={(e) => handleDeleteSchedule(e)}
-            ></img>
+            <div className="flex items-center">
+              <img
+                src={`${process.env.PUBLIC_URL}/image/recycle-bin.png`}
+                alt="휴지통"
+                className="w-5 h-5 text-main-red-color cursor-pointer"
+                onClick={(e) => handleDeleteSchedule(e)}
+              ></img>
+            </div>
           </div>
         </div>
       </div>
