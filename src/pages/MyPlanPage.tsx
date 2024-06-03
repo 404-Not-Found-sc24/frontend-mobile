@@ -47,9 +47,8 @@ const MyPlanPage: React.FC = () => {
       tabs.push(
         <button
           key={i}
-          className={`w-16 h-full bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-sm mr-2 ${
-            activeTab === i ? '' : 'opacity-50'
-          }`}
+          className={`w-16 h-full bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-sm mr-2 ${activeTab === i ? '' : 'opacity-50'
+            }`}
           onClick={() => handleTabClick(i)}
         >
           {`${i}일차`}
@@ -60,9 +59,8 @@ const MyPlanPage: React.FC = () => {
       tabs.push(
         <div key="more" className="relative w-16 h-full">
           <button
-            className={`w-16 h-full bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-sm mr-2 ${
-              activeTab > 5 ? '' : 'opacity-50'
-            }`}
+            className={`w-16 h-full bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-sm mr-2 ${activeTab > 5 ? '' : 'opacity-50'
+              }`}
             onClick={() => setDropdownVisible(!dropdownVisible)}
           >
             ...
@@ -73,9 +71,8 @@ const MyPlanPage: React.FC = () => {
                 (day) => (
                   <button
                     key={day}
-                    className={`block w-full my-1 px-4 py-2 bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-sm mr-2 opacity-50 hover:opacity-100 ${
-                      activeTab === day ? 'opacity-100' : 'opacity-50'
-                    }`}
+                    className={`block w-full my-1 px-4 py-2 bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-xs mr-2 opacity-50 hover:opacity-100 ${activeTab === day ? 'opacity-100' : 'opacity-50'
+                      }`}
                     onClick={() => handleTabClick(day)}
                   >
                     {`${day}일차`}
@@ -127,8 +124,8 @@ const MyPlanPage: React.FC = () => {
       (data) =>
         Math.ceil(
           Math.abs(new Date(data.date).getTime() - startDate.getTime()) /
-            (1000 * 3600 * 24) +
-            1,
+          (1000 * 3600 * 24) +
+          1,
         ) === day,
     );
   };
@@ -148,24 +145,11 @@ const MyPlanPage: React.FC = () => {
   const initialCenter =
     activePlaces.length > 0
       ? {
-          latitude: activePlaces[0].latitude,
-          longitude: activePlaces[0].longitude,
-        }
+        latitude: activePlaces[0].latitude,
+        longitude: activePlaces[0].longitude,
+      }
       : { latitude: 37.2795, longitude: 127.0438 };
 
-  const navieditplan = () => {
-    navigate('/makeplan', {
-      state: {
-        startDate: plan.startDate,
-        endDate: plan.endDate,
-        city: plan.location,
-        name: plan.title,
-        scheduleId: plan.scheduleId,
-        planData: planData,
-        check: 1,
-      },
-    });
-  };
 
   const naviBack = () => {
     window.history.back();
@@ -176,71 +160,56 @@ const MyPlanPage: React.FC = () => {
   }
 
   return (
-    <div className="flex w-full h-[90%]">
-      <div className="w-1/2 h-full">
-        <div className="flex w-full">
-          <i
-            className="backArrow ml-2 cursor-pointer w-[10%]"
-            onClick={naviBack}
-          ></i>
-          <div className="flex items-center w-[90%]">
-            <div className="font-['BMJUA'] text-3xl text-black ml-2 flex items-center">
-              {plan.name}
-            </div>
-            <div className="font-['BMJUA'] text-xl text-[#ED661A] ml-5 flex items-center">
-              {plan.startDate} ~ {plan.endDate}
-            </div>
+    <div className="flex w-full h-[90%] flex flex-col">
+      <div className="flex w-full">
+        <i
+          className="backArrow ml-2 cursor-pointer w-[10%]"
+          onClick={naviBack}
+        ></i>
+        <div className=" ml-3 flex flex-col w-11/12">
+          <div className="font-['BMJUA'] text-2xl text-black flex items-center">
+            {plan.name}
           </div>
-        </div>
-        <div className="w-full flex justify-center">
-          <div className="w-11/12 h-full pt-3 pb-5 flex flex-col">
-            <div className="flex justify-between h-7">
-              <div className="flex items-center">{generateTabs()}</div>
-              <button
-                onClick={navieditplan}
-                className="w-20 h-7 bg-black rounded-2xl text-white font-['Nanum Gothic'] text-sm font-semibold"
-              >
-                일정 수정
-              </button>
-            </div>
-            {Array.from({ length: diffDays }, (_, index) => (
-              <div key={index}>
-                {activeTab === index + 1 && (
-                  <div>
-                    {planData
-                      .filter(
-                        (data) =>
-                          Math.ceil(
-                            Math.abs(
-                              new Date(data.date).getTime() -
-                                startDate.getTime(),
-                            ) /
-                              (1000 * 3600 * 24) +
-                              1,
-                          ) ===
-                          index + 1,
-                      )
-                      .map((filteredData, dataIndex) => (
-                        <MyPlanDetailBox
-                          key={dataIndex}
-                          scheduleData={filteredData}
-                          planName={plan.name}
-                        />
-                      ))}
-                  </div>
-                )}
-              </div>
-            ))}
+          <div className="font-['BMJUA'] text-sm text-[#ED661A] flex items-center">
+            {plan.startDate} ~ {plan.endDate}
           </div>
         </div>
       </div>
-      <MapProvider
-        key={JSON.stringify(initialMarkers)}
-        initialCenter={initialCenter}
-        initialMarkers={initialMarkers}
-      >
-        <Map />
-      </MapProvider>
+      <div className="w-full flex justify-center">
+        <div className="w-11/12 h-full pt-3 pb-5 flex flex-col">
+          <div className="flex justify-between h-7 mb-2">
+            <div className="flex items-center">{generateTabs()}</div>
+          </div>
+          {Array.from({ length: diffDays }, (_, index) => (
+            <div key={index}>
+              {activeTab === index + 1 && (
+                <div>
+                  {planData
+                    .filter(
+                      (data) =>
+                        Math.ceil(
+                          Math.abs(
+                            new Date(data.date).getTime() -
+                            startDate.getTime(),
+                          ) /
+                          (1000 * 3600 * 24) +
+                          1,
+                        ) ===
+                        index + 1,
+                    )
+                    .map((filteredData, dataIndex) => (
+                      <MyPlanDetailBox
+                        key={dataIndex}
+                        scheduleData={filteredData}
+                        planName={plan.name}
+                      />
+                    ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
