@@ -95,12 +95,12 @@ const MyDiaryDetail: React.FC = () => {
 
   const initialMarkers = PlanData
     ? [
-        {
-          placeId: PlanData.placeId,
-          latitude: PlanData.latitude,
-          longitude: PlanData.longitude,
-        },
-      ]
+      {
+        placeId: PlanData.placeId,
+        latitude: PlanData.latitude,
+        longitude: PlanData.longitude,
+      },
+    ]
     : [];
 
   const initialCenter = PlanData
@@ -108,22 +108,14 @@ const MyDiaryDetail: React.FC = () => {
     : { latitude: 37.2795, longitude: 127.0438 };
 
   const naviBack = () => {
-    console.log(PlanData.imageUrl);
-    console.log(PlanData);
-    console.log(planName);
-    console.log(Diarydata);
     window.history.back();
   };
 
   const navimakediary = () => {
-    console.log(PlanData);
-    console.log(Diarydata);
     navigate('/makediary', { state: { PlanData: PlanData } });
   };
 
   const navieditdiary = () => {
-    console.log(PlanData);
-    console.log(Diarydata);
     navigate('/editdiary', {
       state: { PlanData: PlanData, Diarydata: Diarydata },
     });
@@ -149,108 +141,100 @@ const MyDiaryDetail: React.FC = () => {
   };
 
   return (
-    <div className="flex w-full h-[90%]">
-      <div className="w-1/2 h-full">
-        <div className="flex justify-between items-center">
-          <div className="flex w-full">
-            <i
-              className="backArrow ml-2 cursor-pointer w-[10%]"
-              onClick={naviBack}
-            ></i>
-            <div className="flex items-center w-[90%]">
-              <div className="font-['BMJUA'] text-3xl text-black ml-2 flex items-center">
-                {planName}
-              </div>
-              <div className="font-['BMJUA'] text-xl text-[#ED661A] ml-5 flex items-center">
-                {PlanData.date}
-              </div>
+    <div className="flex w-full h-[90%] flex-col">
+      <div className="flex justify-between items-center w-[95%] flex-row">
+        <div className="flex w-full">
+          <i
+            className="backArrow ml-2 cursor-pointer w-[10%]"
+            onClick={naviBack}
+          ></i>
+          <div className="flex flex-col ml-3">
+            <div className="font-['BMJUA'] text-xl text-black flex items-center">
+              {planName}
+            </div>
+            <div className="font-['BMJUA'] text-md text-[#ED661A] flex items-center">
+              {PlanData.date}
             </div>
           </div>
-          {Diarydata ? (
-            <button
-              onClick={navieditdiary}
-              className="flex items-center justify-center w-[20%] h-7  mx-10 bg-black rounded-2xl text-white font-['Nanum Gothic'] text-sm font-semibold"
-            >
-              일기 수정
-            </button>
-          ) : (
-            <button
-              onClick={navimakediary}
-              className="flex items-center justify-center w-[20%] h-7 mx-10 bg-black rounded-2xl text-white font-['Nanum Gothic'] text-sm font-semibold"
-            >
-              일기 작성
-            </button>
-          )}
         </div>
-        <div className="w-full h-[95%] flex justify-center">
-          <div className="w-5/6 h-full mb-5">
-            <div className="w-full h-full flex flex-col pt-3">
-              <div className="w-full h-[95%] flex flex-col py-5 rounded-md shadow-xl">
-                <div className="flex h-[10%] mx-5 items-center">
-                  <div className="flex justify-between w-[100%] items-center">
-                    <div className="font-['BMJUA'] text-2xl">
-                      {PlanData.locationName}
-                    </div>
-                    {Diarydata ? (
-                      <button
-                        onClick={deleteDiary}
-                        className="flex items-center justify-end w-20 h-7 "
-                      >
-                        <img
-                          src={
-                            process.env.PUBLIC_URL +
-                            '/image/delete-bin-6-line.png'
-                          }
-                          alt="삭제"
-                          width="30"
-                          height="30"
-                          onClick={(e) => handleDeleteDiary(e)}
-                        />
-                      </button>
-                    ) : (
-                      <></>
-                    )}
+        {Diarydata ? (
+          <button
+            onClick={navieditdiary}
+            className="flex items-center justify-center w-[20%] h-7 bg-black rounded-2xl text-white font-['Nanum Gothic'] text-xs font-semibold"
+          >
+            일기 수정
+          </button>
+        ) : (
+          <button
+            onClick={navimakediary}
+            className="flex items-center justify-center w-[20%] h-7 bg-black rounded-2xl text-white font-['Nanum Gothic'] text-xs font-semibold"
+          >
+            일기 작성
+          </button>
+        )}
+      </div>
+      <div className="w-full h-[95%] flex justify-center">
+        <div className="w-5/6 h-full mb-5">
+          <div className="w-full h-full flex flex-col pt-3">
+            <div className="w-full h-[95%] flex flex-col py-5 rounded-md shadow-xl">
+              <div className="flex h-[10%] mx-5 items-center">
+                <div className="flex justify-between w-[100%] items-center">
+                  <div className="font-['BMJUA'] text-lg">
+                    {PlanData.locationName}
                   </div>
-                </div>
-                {PlanData.title ? (
-                  <>
-                    <div className="flex justify-center h-fit m-5">
+                  {Diarydata ? (
+                    <button
+                      onClick={deleteDiary}
+                      className="flex items-center justify-end w-20 h-7 "
+                    >
                       <img
-                        src={PlanData.imageUrl}
-                        width="250px"
-                        alt="지역소개사진"
+                        src={
+                          process.env.PUBLIC_URL +
+                          '/image/delete-bin-6-line.png'
+                        }
+                        alt="삭제"
+                        width="25"
+                        height="25"
+                        onClick={(e) => handleDeleteDiary(e)}
                       />
-                    </div>
-                    <div className="mx-10 my-5 h-full">
-                      <div className="flex justify-between">
-                        <div className="w-[90%] font-['Nanum Gothic'] font-bold text-lg">
-                          {PlanData.title}
-                        </div>
-                        {Diarydata && (
-                          <div className="w-[10%]">{Diarydata.weather}</div>
-                        )}
-                      </div>
-                      <div className="font-['Nanum Gothic'] mt-3">
-                        {PlanData.content}
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <div className="flex justify-center font-['BMJUA'] text-xl text-main-green-color h-[50%] items-center">
-                    일기를 작성해주세요!
-                  </div>
-                )}
+                    </button>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
+              {PlanData.title ? (
+                <>
+                  <div className="flex justify-center h-fit m-5">
+                    <img
+                      src={PlanData.imageUrl}
+                      width="250px"
+                      alt="지역소개사진"
+                    />
+                  </div>
+                  <div className="mx-10 my-5 h-full">
+                    <div className="flex justify-between">
+                      <div className="w-[90%] font-['Nanum Gothic'] font-bold text-lg">
+                        {PlanData.title}
+                      </div>
+                      {Diarydata && (
+                        <div className="w-[10%]">{Diarydata.weather}</div>
+                      )}
+                    </div>
+                    <div className="font-['Nanum Gothic'] mt-3">
+                      {PlanData.content}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="flex justify-center font-['BMJUA'] text-xl text-main-green-color h-[50%] items-center">
+                  일기를 작성해주세요!
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
-      <MapProvider
-        initialMarkers={initialMarkers}
-        initialCenter={initialCenter}
-      >
-        <Map />
-      </MapProvider>
       {showDeletePopup && (
         <div className="popup absolute top-0 left-0 z-50 w-full h-full bg-black/50 flex justify-center">
           <div className="bg-white p-3 rounded mt-10 w-1/3 h-36 flex items-center flex-col">
