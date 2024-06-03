@@ -160,29 +160,28 @@ const MyPageSetting: React.FC = () => {
     };
 
     return (
-        console.log(userInfo),
-            <div className="flex justify-center">
-                <div className="w-5/6 flex items-center flex-col">
+            <div className="w-full flex justify-center">
+                <div className="w-full flex items-center flex-col">
                     {userInfo?.imageUrl == null ?
                         <img
                             src={`${process.env.PUBLIC_URL}/image/user.png`}
                             alt="유저 기본 이미지"
-                            className="w-24 h-24 -top-10 bg-white rounded-full"
+                            className="w-24 h-24 -top-10 bg-white rounded-full mb-3 border-main-red-color border-2"
                         />
                         :
                         <img
                             src={userInfo.imageUrl}
                             alt="유저 프로필 이미지"
-                            className="w-36 h-36 -top-10 bg-white rounded-full mb-5 border-main-red-color border-2"
+                            className="w-24 h-24 -top-10 bg-white rounded-full mb-3 border-main-red-color border-2"
                         />
                     }
                     <div>
                         <div className="flex flex-col">
-                            <button className="bg-main-red-color opacity-75 rounded text-white py-1 px-3"
+                            <button className="bg-main-red-color opacity-75 rounded text-white py-1 px-3 text-sm font-BMJUA"
                                     onClick={onClickImageUplaod}>
                                 프로필 수정
                             </button>
-                            <button className="text-main-green-color text-sm underline mt-1" onClick={getOut}>회원 탈퇴하기
+                            <button className="text-main-green-color text-xs underline mt-1" onClick={getOut}>회원 탈퇴하기
                             </button>
                         </div>
                         <input
@@ -193,45 +192,45 @@ const MyPageSetting: React.FC = () => {
                             ref={imageInput}
                         />
                     </div>
-                    <div className="mt-4 w-1/2 flex justify-center flex-col">
-                        <div className='my-2'>
-                            <div className='my-1'>이름</div>
+                    <div className="mt-4 w-3/4 flex justify-center flex-col">
+                        <div className='my-1'>
+                            <div className="my-1 font-BMJUA">이름</div>
                             <input
                                 name="name"
                                 value={userInfo.name}
                                 onChange={handleInputChange}
-                                className="w-full border rounded p-2 mb-2"
+                                className="w-full border rounded p-2 mb-1"
                             /></div>
-                        <div className='my-2'>
-                            <div className='my-1'>닉네임</div>
+                        <div className='my-1'>
+                            <div className="my-1 font-BMJUA">닉네임</div>
                             <input
                                 name="nickname"
                                 value={userInfo.nickname}
                                 onChange={handleInputChange}
-                                className="w-full border rounded p-2 mb-2"
+                                className="w-full border rounded p-2 mb-1"
                             />
                         </div>
-                        <div className='my-2'>
-                            <div className='my-1'>이메일</div>
+                        <div className='my-1'>
+                            <div className="my-1 font-BMJUA">이메일</div>
                             <input
                                 name="email"
                                 disabled
                                 value={userInfo.email}
                                 onChange={handleInputChange}
-                                className="w-full border rounded p-2 mb-2 disabled:bg-gray-200"
+                                className="w-full border rounded p-2 mb-1 disabled:bg-gray-200"
                             />
                         </div>
-                        <div className='my-2'>
-                            <div className='my-1'>핸드폰</div>
+                        <div className='my-1'>
+                            <div className="my-1 font-BMJUA">핸드폰</div>
                             <input
                                 name="phone"
                                 value={userInfo.phone}
                                 onChange={handleInputChange}
-                                className="w-full border rounded p-2 mb-2"
+                                className="w-full border rounded p-2 mb-1"
                             />
                         </div>
                     </div>
-                    <button className="my-2 bg-main-red-color opacity-75 rounded text-white py-1 px-3"
+                    <button className="my-2 bg-main-red-color opacity-75 rounded text-white py-1 px-3 font-BMJUA"
                             onClick={handleSubmit}>
                         저장
                     </button>
