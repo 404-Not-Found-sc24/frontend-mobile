@@ -279,17 +279,21 @@ const MyPage: React.FC = () => {
         </div>
       </div>
       {showSuccessPopup && (
-        <div className="popup fixed top-0 l-0 w-full h-100% bg-black/50 flex justify-center">
-          <div className="bg-white p-3 rounded mt-10 w-1/3 h-36 flex items-center flex-col">
-            <div className="h-24 flex items-center">일정이 삭제되었습니다.</div>
-            <button
-              onClick={handlePopupClose}
-              className="w-16 text-white bg-main-red-color py-0.5 px-3"
-            >
-              확인
-            </button>
+          <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
+            <div className="bg-white p-3 rounded w-3/4 h-1/4 flex flex-col items-center">
+              <div className="h-24 flex items-center font-[BMJUA] text-xl">
+                일정이 삭제되었습니다.
+              </div>
+              <div>
+                <button
+                    onClick={handlePopupClose}
+                    className="w-16 text-white bg-main-red-color py-0.5 px-3 font-[BMJUA]"
+                >
+                  확인
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
       )}
     </div>
   );

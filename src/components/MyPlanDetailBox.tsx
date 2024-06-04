@@ -58,11 +58,7 @@ const MyPlanDetailBox: React.FC<PlanDetailBoxProps> = ({
               style={{ maxWidth: '100%' }}
             />
           ) : (
-            <div
-              className="w-full border-2 text-center flex items-center justify-center"
-              style={{ maxWidth: '100%' }}>
-              No Image
-            </div>
+              <img src={process.env.PUBLIC_URL + '/image/logo.png'} className='h-full w-full'></img>
           )}
 
         </div>
