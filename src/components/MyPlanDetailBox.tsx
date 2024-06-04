@@ -41,12 +41,12 @@ const MyPlanDetailBox: React.FC<PlanDetailBoxProps> = ({
       <div className="w-full flex items-center justify-between">
         <div className="flex flex-row items-center">
           <img src="icon-pencil.png" alt="일기 수정"
-            className="h-5 w-5 cursor-pointer mr-2"
+            className="h-3 w-3 cursor-pointer mr-4"
             onClick={toDiaryDetail} />
-          <div className="flex flex-col w-[70%]">
-            <div className="w-fit flex flex-col justify-center items-start font-['BMJUA'] text-[#FF9A9A] text-xl">
+          <div className="flex flex-col w-full">
+            <div className="w-fit flex flex-col justify-center items-start font-['BMJUA'] text-[#FF9A9A] text-md">
               {time}
-              <span className="font-['BMJUA'] text-black text-md">{locationName.length > 6 ? `${locationName.slice(0, 5)}...` : locationName}</span>
+              <span className="font-['BMJUA'] text-black text-md">{locationName.length > 13 ? `${locationName.slice(0, 12)}...` : locationName}</span>
             </div>
             <div className="w-full flex flex-1 font-['Nanum Gothic'] pr-2">{content}</div>
           </div>
@@ -62,7 +62,7 @@ const MyPlanDetailBox: React.FC<PlanDetailBoxProps> = ({
           </div>
           ) : (
             <div className="w-[100%] h-[60px] flex items-center justify-center">
-              <div className="text-center text-main-green-color font-bold font-BMJUA">
+              <div className="text-center text-main-green-color font-bold font-BMJUA text-xs">
                 {title || content ? '' : '일기가 없습니다.'}
               </div>
             </div>
