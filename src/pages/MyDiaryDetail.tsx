@@ -246,11 +246,11 @@ const MyDiaryDetail: React.FC = () => {
       </div>
       {showDeletePopup && (
         <div className="popup absolute top-0 left-0 z-50 w-full h-full bg-black/50 flex justify-center">
-          <div className="bg-white p-3 rounded mt-10 w-1/3 h-36 flex items-center flex-col">
+          <div className="bg-white p-3 rounded mt-10 w-2/3 h-36 flex items-center flex-col">
             <div className="h-24 flex items-center">
               일기를 삭제하시겠습니까?
             </div>
-            <div>
+            <div className="flex flex-row">
               <button
                 onClick={handlePopupClose}
                 className="w-16 text-white bg-main-red-color py-0.5 px-3 mr-3"
@@ -269,7 +269,7 @@ const MyDiaryDetail: React.FC = () => {
       )}
       {showSuccessPopup && (
         <div className="popup absolute top-0 left-0 z-50 w-full h-full bg-black/50 flex justify-center">
-          <div className="bg-white p-3 rounded mt-10 w-1/3 h-36 flex items-center flex-col">
+          <div className="bg-white p-3 rounded mt-10 w-2/3 h-36 flex items-center flex-col">
             <div className="h-24 flex items-center">일기가 삭제되었습니다.</div>
             <button
               onClick={handleSuccessPopupClose}
