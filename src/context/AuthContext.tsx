@@ -7,6 +7,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   refreshAccessToken: () => Promise<void>;
+  googleLogin: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,6 +30,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
     checkAuth();
   }, []);
+  
+  const googleLogin = () => {
+    setIsAuthenticated(true);
+  }
 
   const login = async (email: string, password: string) => {
     try {
@@ -82,6 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         accessToken,
         login,
         logout,
+        googleLogin,
         refreshAccessToken,
       }}
     >
