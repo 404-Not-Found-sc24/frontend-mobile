@@ -42,6 +42,10 @@ const SignIn: React.FC = () => {
     navigate('/findpassword');
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_FE_URL}/loginSuccess&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
+  }
+
   return (
     <div className="max-w-md mx-auto mt-10 px-4">
       <h1 className="text-3xl font-semibold text-center">로그인</h1>
@@ -83,6 +87,11 @@ const SignIn: React.FC = () => {
           </button>
         </div>
       </form>
+      <div className="w-full h-full flex justify-center mt-3">
+        <button className="w-20 h-20 border-2 rounded-full p-3" onClick={handleGoogleLogin}>
+          <img className="w-full h-full" src="google.png" alt="구글 소셜 로그인" />
+        </button>
+      </div>
     </div>
   );
 };
