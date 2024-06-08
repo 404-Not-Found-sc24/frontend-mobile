@@ -31,7 +31,7 @@ interface Diary {
 const MyDiaryDetail: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const PlanData = location.state.PlanData;
+  const [PlanData, setPlanData] = useState<PlanData>(location.state.PlanData);
   const planName = location.state.planName;
   const [Diarydata, setDiaryData] = useState<Diary | null>(null);
   const accessToken = localStorage.getItem('accessToken');
@@ -40,9 +40,8 @@ const MyDiaryDetail: React.FC = () => {
   const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
   const [isBeforeStartDate, setIsBeforeStartDate] = useState<boolean>(false);
 
-  useEffect(() => {
-    const getData = async () => {
-      console.log(PlanData);
+  const getData = async () => {
+    if (PlanData.diaryId) {
       try {
         await axios
           .get(`/tour/diary/${PlanData.diaryId}`, {
@@ -51,19 +50,31 @@ const MyDiaryDetail: React.FC = () => {
             },
           })
           .then((response) => {
-            console.log(response.data);
             setDiaryData(response.data);
           });
       } catch (e) {
         console.error('Error:', e);
+        setDiaryData(null);
       }
-    };
-    getData();
-    
+    }
+  };
+
+  useEffect(() => {
     const today = new Date();
     const startDate = new Date(PlanData.date);
     setIsBeforeStartDate(today < startDate);
+
+    const storedState = sessionStorage.getItem('planState');
+
+    if (storedState) {
+      setPlanData(JSON.parse(storedState).PlanData);
+      sessionStorage.removeItem('planState'); // 상태를 복원한 후 삭제
+    }
   }, []);
+
+  useEffect(() => {
+    getData();
+  }, [PlanData]);
 
   const handleDeleteDiary = async (
     e: React.MouseEvent<HTMLImageElement, MouseEvent>,
@@ -100,12 +111,12 @@ const MyDiaryDetail: React.FC = () => {
 
   const initialMarkers = PlanData
     ? [
-      {
-        placeId: PlanData.placeId,
-        latitude: PlanData.latitude,
-        longitude: PlanData.longitude,
-      },
-    ]
+        {
+          placeId: PlanData.placeId,
+          latitude: PlanData.latitude,
+          longitude: PlanData.longitude,
+        },
+      ]
     : [];
 
   const initialCenter = PlanData
@@ -117,12 +128,13 @@ const MyDiaryDetail: React.FC = () => {
   };
 
   const navimakediary = () => {
-    navigate('/makediary', { state: { PlanData: PlanData } });
+    navigate('/makediary', {
+      state: { PlanData: PlanData, planName: planName },
+    });
   };
-
   const navieditdiary = () => {
     navigate('/editdiary', {
-      state: { PlanData: PlanData, Diarydata: Diarydata },
+      state: { PlanData: PlanData, Diarydata: Diarydata, planName: planName },
     });
   };
 
@@ -142,7 +154,7 @@ const MyDiaryDetail: React.FC = () => {
   };
   const handleSuccessPopupClose = () => {
     setShowSuccessPopup(false);
-    navigate('/mypage');
+    getData();
   };
 
   return (
@@ -163,7 +175,7 @@ const MyDiaryDetail: React.FC = () => {
           </div>
         </div>
         {!isBeforeStartDate && (
-          <div className='w-[20%] mr-5'>
+          <div className="w-[20%] mr-5">
             {Diarydata ? (
               <button
                 onClick={navieditdiary}
@@ -212,32 +224,43 @@ const MyDiaryDetail: React.FC = () => {
                   )}
                 </div>
               </div>
-              {PlanData.title ? (
+              {Diarydata ? (
                 <>
-                  <div className="flex justify-center h-fit m-5">
-                    <img
-                      src={PlanData.imageUrl}
-                      width="250px"
-                      alt="지역소개사진"
-                    />
-                  </div>
+                  {Diarydata.imageUrl.length != 0 ? (
+                    <div className="flex justify-center h-fit m-5">
+                      <img
+                        src={Diarydata.imageUrl}
+                        width="250px"
+                        alt="사진이없습니다."
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex mx-auto my-4 justify-center items-center w-[80%] h-[80%] border border-gray-300 rounded-md">
+                      <div className="text-gray-500">
+                        사진을 업로드 해주세요
+                      </div>
+                    </div>
+                  )}
+
                   <div className="mx-10 my-5 h-full">
                     <div className="flex justify-between">
                       <div className="w-[90%] font-['Nanum Gothic'] font-bold text-lg">
-                        {PlanData.title}
+                        {Diarydata.title}
                       </div>
                       {Diarydata && (
                         <div className="w-[10%]">{Diarydata.weather}</div>
                       )}
                     </div>
                     <div className="font-['Nanum Gothic'] mt-3">
-                      {PlanData.content}
+                      {Diarydata.content}
                     </div>
                   </div>
                 </>
               ) : (
                 <div className="flex justify-center font-['BMJUA'] text-xl text-main-green-color h-[50%] items-center">
-                  {isBeforeStartDate ? '일정이 시작되지 않았습니다!':'일기를 작성해주세요!'}
+                  {isBeforeStartDate
+                    ? '일정이 시작되지 않았습니다!'
+                    : '일기를 작성해주세요!'}
                 </div>
               )}
             </div>
