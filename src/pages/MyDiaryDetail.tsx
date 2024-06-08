@@ -4,6 +4,7 @@ import { MapProvider } from '../context/MapContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios, { AxiosError } from 'axios';
 import { useAuth } from '../context/AuthContext';
+import SmallMap from '../components/SmallMap';
 
 interface PlanData {
   placeId: number;
@@ -39,7 +40,6 @@ const MyDiaryDetail: React.FC = () => {
   const [showDeletePopup, setShowDeletePopup] = useState<boolean>(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
   const [isBeforeStartDate, setIsBeforeStartDate] = useState<boolean>(false);
-
   useEffect(() => {
     const getData = async () => {
       console.log(PlanData);
@@ -59,7 +59,7 @@ const MyDiaryDetail: React.FC = () => {
       }
     };
     getData();
-    
+
     const today = new Date();
     const startDate = new Date(PlanData.date);
     setIsBeforeStartDate(today < startDate);
@@ -145,8 +145,17 @@ const MyDiaryDetail: React.FC = () => {
     navigate('/mypage');
   };
 
+  const handleLinkKakao = () => {
+    // 버튼을 눌렀을 때 이동할 링크 주소
+    const linkUrl = 'https://map.kakao.com/link/to/'+PlanData.locationName+","+PlanData.latitude+","+PlanData.longitude;
+    console.log(linkUrl);
+
+    // 새 창으로 링크를 열기
+    window.open(linkUrl, '_blank');
+  };
+
   return (
-    <div className="flex w-full h-[90%] flex-col">
+    <div className="flex w-full h-[85%] flex-col">
       <div className="flex justify-between items-center w-[95%] flex-row">
         <div className="flex w-full">
           <i
@@ -163,18 +172,18 @@ const MyDiaryDetail: React.FC = () => {
           </div>
         </div>
         {!isBeforeStartDate && (
-          <div className='w-[20%] mr-5'>
+          <div className='w-[25%] mr-5'>
             {Diarydata ? (
               <button
                 onClick={navieditdiary}
-                className="flex items-center justify-center w-full h-7 bg-black rounded-2xl text-white font-['Nanum Gothic'] text-xs font-semibold"
+                className="flex items-center justify-center w-full h-7 bg-black rounded-2xl text-white font-['Nanum Gothic'] text-xs font-semibold px-2"
               >
                 일기 수정
               </button>
             ) : (
               <button
                 onClick={navimakediary}
-                className="flex items-center justify-center w-full h-7 bg-black rounded-2xl text-white font-['Nanum Gothic'] text-xs font-semibold"
+                className="flex items-center justify-center w-full h-7 bg-black rounded-2xl text-white font-['Nanum Gothic'] text-xs font-semibold px-2"
               >
                 일기 작성
               </button>
@@ -183,9 +192,9 @@ const MyDiaryDetail: React.FC = () => {
         )}
       </div>
       <div className="w-full h-[95%] flex justify-center">
-        <div className="w-5/6 h-full mb-5">
+        <div className="w-5/6">
           <div className="w-full h-full flex flex-col pt-3">
-            <div className="w-full h-[95%] flex flex-col py-5 rounded-md shadow-xl">
+            <div className="w-full h-full flex flex-col py-5 rounded-md shadow-xl">
               <div className="flex h-[10%] mx-5 items-center">
                 <div className="flex justify-between w-[100%] items-center">
                   <div className="font-['BMJUA'] text-lg">
@@ -213,33 +222,57 @@ const MyDiaryDetail: React.FC = () => {
                 </div>
               </div>
               {PlanData.title ? (
-                <>
-                  <div className="flex justify-center h-fit m-5">
-                    <img
-                      src={PlanData.imageUrl}
-                      width="250px"
-                      alt="지역소개사진"
-                    />
+                <div className="flex flex-col h-[55%]">
+                  <div className="flex justify-center m-3 h-28">
+                    {PlanData.imageUrl ?
+                      <img
+                        src={PlanData.imageUrl}
+                        className="h-28"
+                        alt="지역소개사진"
+                      />
+                      :
+                      (
+                        <div className="w-[100%] flex items-center justify-center border">
+                          <div className="text-center text-main-green-color font-bold font-BMJUA text-md">
+                            등록된 사진이 없습니다.
+                          </div>
+                        </div>
+                      )
+                    }
                   </div>
-                  <div className="mx-10 my-5 h-full">
+                  <div className="mx-5 my-3 h-10">
                     <div className="flex justify-between">
-                      <div className="w-[90%] font-['Nanum Gothic'] font-bold text-lg">
+                      <div className="w-[70%] font-['Nanum Gothic'] font-bold text-lg">
                         {PlanData.title}
                       </div>
                       {Diarydata && (
-                        <div className="w-[10%]">{Diarydata.weather}</div>
+                        <div className="w-[20%] text-md flex justify-end">{Diarydata.weather}</div>
                       )}
                     </div>
-                    <div className="font-['Nanum Gothic'] mt-3">
-                      {PlanData.content}
+                  </div>
+                  <div className="mx-5 mb-3 flex flex-col h-[30%]">
+                    <div className="font-['Nanum Gothic'] overflow-y-auto">
+                      {PlanData.content.split('\n').map((line: string, index: number) => (
+                        <div key={index}>{line}</div>
+                      ))}
                     </div>
                   </div>
-                </>
+                </div>
               ) : (
                 <div className="flex justify-center font-['BMJUA'] text-xl text-main-green-color h-[50%] items-center">
-                  {isBeforeStartDate ? '일정이 시작되지 않았습니다!':'일기를 작성해주세요!'}
+                  {isBeforeStartDate ? '일정이 시작되지 않았습니다!' : '일기를 작성해주세요!'}
                 </div>
               )}
+              <div className="h-[35%] w-full flex justify-center flex-col">
+                <div className="h-[88%] w-full flex justify-center">
+                  <SmallMap latitude={PlanData.latitude} longitude={PlanData.longitude} />
+                </div>
+                <div className="w-full flex justify-center">
+                  <button 
+                  className=" h-8 w-[40%] font-white m-1 bg-[#FEE500]"
+                  onClick={handleLinkKakao}>길찾기 바로가기</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
