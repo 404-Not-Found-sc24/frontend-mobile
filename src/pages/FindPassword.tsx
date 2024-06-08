@@ -77,10 +77,12 @@ const FindPassword: React.FC = () => {
       >
         나들이
       </button>
-      <div className="flex justify-center items-center mt-4 font-Nanum Gothic text-2xl ">
-        비밀번호를 찾고자하는 이메일 아이디와 전화번호를 입력해주세요.
+      <div className="flex justify-center items-center mt-4 font-Nanum Gothic text-ms">
+        비밀번호를 찾고자하는 이메일 아이디와
+        <br />
+        전화번호를 입력해주세요.
       </div>
-      <div className="mt-10 mx-auto w-[30%]">
+      <div className="mt-10 mx-auto w-full">
         <input
           type="email"
           placeholder="이메일 아이디를 입력하세요"
@@ -89,7 +91,7 @@ const FindPassword: React.FC = () => {
           className="w-full px-4 py-3 rounded-lg mt-2 border"
         />
       </div>
-      <div className="mt-2 mx-auto w-[30%]">
+      <div className="mt-2 mx-auto w-full">
         <input
           type="phone"
           placeholder="전화번호를 입력하세요"
