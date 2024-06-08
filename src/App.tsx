@@ -29,6 +29,7 @@ import PrivateRoute from './components/PrivateRoute';
 import AddEvent from './pages/AddEvent';
 import AddPromotion from './pages/AddPromotion';
 import EditDiary from './pages/EditDiary';
+import LoginSuccess from './pages/LoginSuccess';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/loginSuccess" element={<LoginSuccess/>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/placeinfo" element={<PlaceInfo />} />
           <Route path="/searchplace" element={<SearchPlace />} />
