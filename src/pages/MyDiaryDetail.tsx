@@ -312,13 +312,13 @@ const MyDiaryDetail: React.FC = () => {
                 <div className="w-full flex justify-center">
                   <div className="w-[80%] flex justify-between">
                     <button
-                      className=" h-8 w-[45%] font-white m-1 bg-[#FEE500]"
+                      className=" h-8 w-[45%] font-white m-1 bg-[#FEE500] font-['Nanum Gothic']"
                       onClick={handleLinkMap}
                     >
                       지도 바로가기
                     </button>
                     <button
-                      className=" h-8 w-[45%] font-white m-1 bg-[#FEE500]"
+                      className=" h-8 w-[45%] font-white m-1 bg-[#FEE500] font-['Nanum Gothic']"
                       onClick={handleLinkKakao}
                     >
                       길찾기 바로가기
