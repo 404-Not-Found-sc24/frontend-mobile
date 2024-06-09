@@ -36,7 +36,7 @@ const MyPlanDetailBox: React.FC<PlanDetailBoxProps> = ({
 
   return (
     <div
-      className="w-full h-[15%] p-5 flex rounded-md shadow-xl mb-5"
+      className="w-full h-32 p-5 flex rounded-md shadow-xl mb-5"
     >
       <div className="w-full flex items-center justify-between">
         <div className="flex flex-row items-center">
@@ -48,7 +48,7 @@ const MyPlanDetailBox: React.FC<PlanDetailBoxProps> = ({
               {time}
               <span className="font-['BMJUA'] text-black text-md">{locationName.length > 13 ? `${locationName.slice(0, 12)}...` : locationName}</span>
             </div>
-            <div className="w-[90%] flex flex-1 max-h-24">
+            <div className="w-[90%] flex flex-1 max-h-16">
               <div className="font-['Nanum Gothic'] overflow-y-auto">
               {content && content.split('\n').map((line: string, index: number) => (
                   <div key={index}>{line}</div>
