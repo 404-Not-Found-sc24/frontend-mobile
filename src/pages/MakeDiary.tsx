@@ -152,7 +152,6 @@ const MakeDiary: React.FC = () => {
 
   const handleTitleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      console.log(event.target.value);
       setTitle(event.target.value);
     },
     [],
@@ -160,7 +159,6 @@ const MakeDiary: React.FC = () => {
 
   const handleContentChange = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
-      console.log(event.target.value);
       setContent(event.target.value);
     },
     [],
@@ -222,7 +220,7 @@ const MakeDiary: React.FC = () => {
             )}
 
             <button
-              className="bg-main-red-color opacity-75 rounded text-white py-1 px-3 text-sm font-BMJUA"
+              className="bg-main-red-color rounded text-white py-1 px-3 text-sm font-BMJUA"
               onClick={onClickImageUplaod}
             >
               사진 등록
@@ -278,7 +276,7 @@ const MakeDiary: React.FC = () => {
         <div className="mt-4 flex justify-end w-full w-[10%]">
           <button
             onClick={handleSubmit}
-            className="px-4 py-2 bg-main-red-color text-white text-xs font-BMJUA rounded-md"
+            className="px-4 py-2 bg-main-red-color text-white text-sm font-BMJUA rounded-md"
           >
             일기 작성
           </button>

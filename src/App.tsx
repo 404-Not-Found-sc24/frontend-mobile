@@ -30,6 +30,7 @@ import AddEvent from './pages/AddEvent';
 import AddPromotion from './pages/AddPromotion';
 import EditDiary from './pages/EditDiary';
 import LoginSuccess from './pages/LoginSuccess';
+import ChangePassword from './pages/ChangePassword';
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/loginSuccess" element={<LoginSuccess/>} />
+          <Route path="/loginSuccess" element={<LoginSuccess />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/placeinfo" element={<PlaceInfo />} />
           <Route path="/searchplace" element={<SearchPlace />} />
@@ -63,6 +64,7 @@ function App() {
             <Route path="/mypage-setting" element={<MyPageSetting />} />
             <Route path="/addevent" element={<AddEvent />} />
             <Route path="/addpromotion" element={<AddPromotion />} />
+            <Route path="/changepassword" element={<ChangePassword />} />
           </Route>
         </Routes>
       </BrowserRouter>
