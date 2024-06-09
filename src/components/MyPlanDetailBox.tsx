@@ -48,18 +48,23 @@ const MyPlanDetailBox: React.FC<PlanDetailBoxProps> = ({
               {time}
               <span className="font-['BMJUA'] text-black text-md">{locationName.length > 13 ? `${locationName.slice(0, 12)}...` : locationName}</span>
             </div>
-            <div className="w-full flex flex-1 font-['Nanum Gothic'] pr-2">{content}</div>
+            <div className="w-full flex flex-1 max-h-24 pr-2">
+              <div className="font-['Nanum Gothic'] overflow-y-auto">
+              {content && content.split('\n').map((line: string, index: number) => (
+                  <div key={index}>{line}</div>
+                ))}
+              </div></div>
           </div>
         </div>
         <div className="w-[25%]">
           {imageUrl ? (
             <div className="w-full h-[60px]">
-            <img
-              src={imageUrl}
-              className='w-full h-full object-cover'
-              alt="일기사진"
-            />
-          </div>
+              <img
+                src={imageUrl}
+                className='w-full h-full object-cover'
+                alt="일기사진"
+              />
+            </div>
           ) : (
             <div className="w-[100%] h-[60px] flex items-center justify-center">
               <div className="text-center text-main-green-color font-bold font-BMJUA text-xs">
