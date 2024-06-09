@@ -220,7 +220,7 @@ const MakeDiary: React.FC = () => {
             )}
 
             <button
-              className="bg-main-red-color opacity-75 rounded text-white py-1 px-3 text-sm font-BMJUA"
+              className="bg-main-red-color rounded text-white py-1 px-3 text-sm font-BMJUA"
               onClick={onClickImageUplaod}
             >
               사진 등록

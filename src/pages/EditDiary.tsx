@@ -200,35 +200,36 @@ const EditDiary: React.FC = () => {
       </div>
       <div className="px-5 pb-5 flex flex-col items-center h-[92%]">
         <div className="flex w-full border justify-center items-center p-1 flex-col">
-            {showUploadMessage ? (
-              <div className="flex justify-center items-center w-[70%] h-[90%] min-h-36 mb-2 border border-gray-300 rounded-md">
-                등록된 사진이 없습니다.
+          {showUploadMessage ? (
+            <div className="flex justify-center items-center w-[70%] h-[90%] min-h-36 mb-2 border border-gray-300 rounded-md">
+              등록된 사진이 없습니다.
+            </div>
+          ) : (
+            <div className="flex justify-center flex-col border border-gray-300 rounded-md mb-2">
+              <div className=" flex justify-center items-center">
+                <img
+                  src={previewImages[currentImageIndex] || 'placeholder.png'}
+                  alt={`Image preview ${currentImageIndex}`}
+                  className="h-32"
+                />
               </div>
-            ) : (
-              <div className="flex justify-center flex-col border border-gray-300 rounded-md mb-2">
-                <div className=" flex justify-center items-center">
-                  <img
-                    src={previewImages[currentImageIndex] || 'placeholder.png'}
-                    alt={`Image preview ${currentImageIndex}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            )}
-            <button
-              className="bg-main-red-color opacity-75 rounded text-white py-1 px-3 text-sm font-BMJUA"
-              onClick={onClickImageUplaod}
-            >
-              사진 변경
-            </button>
-            <input
-              type="file"
-              multiple
-              accept="image/jpg, image/png, image/jpeg"
-              onChange={handleImageChange}
-              className="hidden w-full p-2 my-2  border-2 border-main-red-color rounded-md h-[10%]"
-              ref={imageInput}
-            />
+            </div>
+          )}
+
+          <button
+            className="bg-main-red-color rounded text-white py-1 px-3 text-sm font-BMJUA"
+            onClick={onClickImageUplaod}
+          >
+            사진 변경
+          </button>
+          <input
+            type="file"
+            multiple
+            accept="image/jpg, image/png, image/jpeg"
+            onChange={handleImageChange}
+            className="hidden w-full p-2 my-2  border-2 border-main-red-color rounded-md h-[10%]"
+            ref={imageInput}
+          />
         </div>
         <div className="w-full my-2 shadow-xl border p-5 h-[70%]">
           <div className="flex flex-row xl:flex w-full font-BMJUA h-[20%] justify-between">

@@ -160,7 +160,13 @@ const MyDiaryDetail: React.FC = () => {
 
   const handleLinkMap = () => {
     // 버튼을 눌렀을 때 이동할 링크 주소
-    const linkUrl = 'https://map.kakao.com/link/map/' + PlanData.locationName + "," + PlanData.latitude + "," + PlanData.longitude;
+    const linkUrl =
+      'https://map.kakao.com/link/map/' +
+      PlanData.locationName +
+      ',' +
+      PlanData.latitude +
+      ',' +
+      PlanData.longitude;
     console.log(linkUrl);
 
     // 새 창으로 링크를 열기
@@ -169,7 +175,13 @@ const MyDiaryDetail: React.FC = () => {
 
   const handleLinkKakao = () => {
     // 버튼을 눌렀을 때 이동할 링크 주소
-    const linkUrl = 'https://map.kakao.com/link/to/' + PlanData.locationName + "," + PlanData.latitude + "," + PlanData.longitude;
+    const linkUrl =
+      'https://map.kakao.com/link/to/' +
+      PlanData.locationName +
+      ',' +
+      PlanData.latitude +
+      ',' +
+      PlanData.longitude;
     console.log(linkUrl);
 
     // 새 창으로 링크를 열기
@@ -247,13 +259,15 @@ const MyDiaryDetail: React.FC = () => {
                 <div className="flex flex-col h-[60%]">
                   <div className="flex justify-center flex-col m-3 h-28">
                     {Diarydata.imageUrl.length != 0 ? (
+                    <div className="flex justify-center">
                       <img
                         src={Diarydata.imageUrl}
-                        className="h-28"
+                        className="h-28 w-fit"
                         alt="사진이없습니다."
                       />
+                    </div>
                     ) : (
-                      <div className="w-[100%] flex items-center justify-center border">
+                      <div className="w-[100%] h-28 flex items-center justify-center border">
                         <div className="text-center text-main-green-color font-bold font-BMJUA text-md">
                           사진을 업로드 해주세요
                         </div>
@@ -267,7 +281,9 @@ const MyDiaryDetail: React.FC = () => {
                         {Diarydata.title}
                       </div>
                       {Diarydata && (
-                        <div className="w-[20%] text-md flex justify-end">{Diarydata.weather}</div>
+                        <div className="w-[20%] text-md flex justify-end">
+                          {Diarydata.weather}
+                        </div>
                       )}
                     </div>
                   </div>
@@ -288,16 +304,25 @@ const MyDiaryDetail: React.FC = () => {
               )}
               <div className="h-[30%] w-full flex justify-center flex-col">
                 <div className="h-[88%] w-full flex justify-center">
-                  <SmallMap latitude={PlanData.latitude} longitude={PlanData.longitude} />
+                  <SmallMap
+                    latitude={PlanData.latitude}
+                    longitude={PlanData.longitude}
+                  />
                 </div>
                 <div className="w-full flex justify-center">
                   <div className="w-[80%] flex justify-between">
                     <button
                       className=" h-8 w-[45%] font-white m-1 bg-[#FEE500]"
-                      onClick={handleLinkMap}>지도 바로가기</button>
+                      onClick={handleLinkMap}
+                    >
+                      지도 바로가기
+                    </button>
                     <button
                       className=" h-8 w-[45%] font-white m-1 bg-[#FEE500]"
-                      onClick={handleLinkKakao}>길찾기 바로가기</button>
+                      onClick={handleLinkKakao}
+                    >
+                      길찾기 바로가기
+                    </button>
                   </div>
                 </div>
               </div>
