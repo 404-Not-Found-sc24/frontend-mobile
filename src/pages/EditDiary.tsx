@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useCallback, useEffect, useState, useRef } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useState,
+  useRef,
+} from 'react';
 import axios, { AxiosError } from 'axios';
 import Map from '../components/Map';
 import '../index.css';
@@ -10,6 +16,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const EditDiary: React.FC = () => {
   const location = useLocation();
   const PlanData = location.state.PlanData;
+  const planName = location.state.planName;
   const Diarydata = location.state.Diarydata;
   const [title, setTitle] = useState(PlanData.title);
   const [content, setContent] = useState(PlanData.content);
@@ -39,12 +46,12 @@ const EditDiary: React.FC = () => {
 
   const initialMarkers = PlanData
     ? [
-      {
-        placeId: PlanData.placeId,
-        latitude: PlanData.latitude,
-        longitude: PlanData.longitude,
-      },
-    ]
+        {
+          placeId: PlanData.placeId,
+          latitude: PlanData.latitude,
+          longitude: PlanData.longitude,
+        },
+      ]
     : [];
 
   const initialCenter = PlanData
@@ -84,10 +91,13 @@ const EditDiary: React.FC = () => {
           },
         },
       );
-      console.log('일기가 성공적으로 수정되었습니다:', response.data);
+      sessionStorage.setItem(
+        'planState',
+        JSON.stringify({ PlanData, planName }),
+      );
       notifySuccess();
       const id = setTimeout(() => {
-        navigate('/mypage');
+        navigate(-1);
       }, 3000);
       setTimeoutId(id);
     } catch (error) {
@@ -168,13 +178,11 @@ const EditDiary: React.FC = () => {
     window.history.back();
   };
 
-
   const onClickImageUplaod = () => {
     if (imageInput.current) {
       imageInput.current.click();
     }
-  }
-
+  };
 
   return (
     <div className="w-full h-[90%] flex flex-col">
@@ -197,7 +205,7 @@ const EditDiary: React.FC = () => {
                 등록된 사진이 없습니다.
               </div>
             ) : (
-              <div className='flex justify-center flex-col border border-gray-300 rounded-md mb-2'>
+              <div className="flex justify-center flex-col border border-gray-300 rounded-md mb-2">
                 <div className=" flex justify-center items-center">
                   <img
                     src={previewImages[currentImageIndex] || 'placeholder.png'}
@@ -207,7 +215,12 @@ const EditDiary: React.FC = () => {
                 </div>
               </div>
             )}
-            <button className="bg-main-red-color rounded text-white py-1 px-3 text-sm font-BMJUA" onClick={onClickImageUplaod}>사진 변경</button>
+            <button
+              className="bg-main-red-color opacity-75 rounded text-white py-1 px-3 text-sm font-BMJUA"
+              onClick={onClickImageUplaod}
+            >
+              사진 변경
+            </button>
             <input
               type="file"
               multiple

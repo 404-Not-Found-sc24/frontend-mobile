@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useCallback, useEffect, useState, useRef } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useState,
+  useRef,
+} from 'react';
 import axios, { AxiosError } from 'axios';
 import Map from '../components/Map';
 import '../index.css';
@@ -18,6 +24,7 @@ const MakeDiary: React.FC = () => {
   const { accessToken, refreshAccessToken } = useAuth();
   const location = useLocation();
   const PlanData = location.state.PlanData;
+  const planName = location.state.planName;
   const navigate = useNavigate();
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const ALLOW_FILE_EXTENSION = 'jpg,jpeg,png';
@@ -34,12 +41,12 @@ const MakeDiary: React.FC = () => {
 
   const initialMarkers = PlanData
     ? [
-      {
-        placeId: PlanData.placeId,
-        latitude: PlanData.latitude,
-        longitude: PlanData.longitude,
-      },
-    ]
+        {
+          placeId: PlanData.placeId,
+          latitude: PlanData.latitude,
+          longitude: PlanData.longitude,
+        },
+      ]
     : [];
 
   const initialCenter = PlanData
@@ -65,20 +72,23 @@ const MakeDiary: React.FC = () => {
         formData.append('images', image);
       });
 
-      const response = await axios.post(
-        `schedule/diary/${PlanData.placeId}`,
-        formData,
-        {
+      const response = await axios
+        .post(`schedule/diary/${PlanData.placeId}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${accessToken}`,
           },
-        },
+        })
+        .then((response) => {
+          PlanData.diaryId = response.data.diaryId;
+        });
+      sessionStorage.setItem(
+        'planState',
+        JSON.stringify({ PlanData, planName }),
       );
-      console.log('일기가 성공적으로 작성되었습니다:', response.data);
       notifySuccess();
       const id = setTimeout(() => {
-        navigate('/mypage');
+        navigate(-1);
       }, 3000);
       setTimeoutId(id);
     } catch (error) {
@@ -174,7 +184,7 @@ const MakeDiary: React.FC = () => {
     if (imageInput.current) {
       imageInput.current.click();
     }
-  }
+  };
 
   return (
     <div className="w-full h-[90%] flex flex-col">
@@ -198,7 +208,7 @@ const MakeDiary: React.FC = () => {
                 등록된 사진이 없습니다.
               </div>
             ) : (
-              <div className='flex justify-center flex-col border border-gray-300 rounded-md mb-2'>
+              <div className="flex justify-center flex-col border border-gray-300 rounded-md mb-2">
                 <div className=" flex justify-center items-center">
                   <img
                     src={previewImages[currentImageIndex] || 'placeholder.png'}
@@ -209,7 +219,12 @@ const MakeDiary: React.FC = () => {
               </div>
             )}
 
-            <button className="bg-main-red-color rounded text-white py-1 px-3 text-sm font-BMJUA" onClick={onClickImageUplaod}>사진 등록</button>
+            <button
+              className="bg-main-red-color opacity-75 rounded text-white py-1 px-3 text-sm font-BMJUA"
+              onClick={onClickImageUplaod}
+            >
+              사진 등록
+            </button>
             <input
               type="file"
               multiple
@@ -257,7 +272,6 @@ const MakeDiary: React.FC = () => {
             />
           </div>
         </div>
-
 
         <div className="mt-4 flex justify-end w-full w-[10%]">
           <button
