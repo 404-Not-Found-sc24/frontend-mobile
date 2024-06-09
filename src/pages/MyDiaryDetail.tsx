@@ -145,9 +145,18 @@ const MyDiaryDetail: React.FC = () => {
     navigate('/mypage');
   };
 
+  const handleLinkMap = () => {
+    // 버튼을 눌렀을 때 이동할 링크 주소
+    const linkUrl = 'https://map.kakao.com/link/map/' + PlanData.locationName + "," + PlanData.latitude + "," + PlanData.longitude;
+    console.log(linkUrl);
+
+    // 새 창으로 링크를 열기
+    window.open(linkUrl, '_blank');
+  };
+
   const handleLinkKakao = () => {
     // 버튼을 눌렀을 때 이동할 링크 주소
-    const linkUrl = 'https://map.kakao.com/link/to/'+PlanData.locationName+","+PlanData.latitude+","+PlanData.longitude;
+    const linkUrl = 'https://map.kakao.com/link/to/' + PlanData.locationName + "," + PlanData.latitude + "," + PlanData.longitude;
     console.log(linkUrl);
 
     // 새 창으로 링크를 열기
@@ -268,9 +277,14 @@ const MyDiaryDetail: React.FC = () => {
                   <SmallMap latitude={PlanData.latitude} longitude={PlanData.longitude} />
                 </div>
                 <div className="w-full flex justify-center">
-                  <button 
-                  className=" h-8 w-[40%] font-white m-1 bg-[#FEE500]"
-                  onClick={handleLinkKakao}>길찾기 바로가기</button>
+                  <div className="w-[80%] flex justify-between">
+                    <button
+                      className=" h-8 w-[45%] font-white m-1 bg-[#FEE500]"
+                      onClick={handleLinkMap}>지도 바로가기</button>
+                    <button
+                      className=" h-8 w-[45%] font-white m-1 bg-[#FEE500]"
+                      onClick={handleLinkKakao}>길찾기 바로가기</button>
+                  </div>
                 </div>
               </div>
             </div>
