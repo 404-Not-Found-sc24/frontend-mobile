@@ -16,6 +16,7 @@ const SmallMap: React.FC<MapProps> = ({ latitude, longitude }) => {
     const [isKakaoMapLoaded, setIsKakaoMapLoaded] = useState<boolean>(false);
 
     useEffect(() => {
+        console.log("key", process.env.REACT_APP_KAKAO_MAP_API_KEY);
         const loadKakaoMap = () => {
             if (window.kakao && window.kakao.maps) {
                 setIsKakaoMapLoaded(true);
