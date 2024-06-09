@@ -43,11 +43,11 @@ const MyPlanPage: React.FC = () => {
 
   const generateTabs = () => {
     const tabs = [];
-    for (let i = 1; i <= 5 && i <= diffDays; i++) {
+    for (let i = 1; i <= 3 && i <= diffDays; i++) {
       tabs.push(
         <button
           key={i}
-          className={`w-16 h-full bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-sm mr-2 ${activeTab === i ? '' : 'opacity-50'
+          className={`w-16 h-full bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-sm mr-2 ${activeTab === i ? 'opacity-100' : 'opacity-50'
             }`}
           onClick={() => handleTabClick(i)}
         >
@@ -55,25 +55,28 @@ const MyPlanPage: React.FC = () => {
         </button>,
       );
     }
-    if (diffDays > 5) {
+    if (diffDays > 3) {
       tabs.push(
         <div key="more" className="relative w-16 h-full">
           <button
-            className={`w-16 h-full bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-sm mr-2 ${activeTab > 5 ? '' : 'opacity-50'
+            className={`w-16 h-full bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-sm mr-2 ${activeTab > 3 ? 'opacity-100' : 'opacity-50'
               }`}
             onClick={() => setDropdownVisible(!dropdownVisible)}
           >
-            ...
+            {activeTab > 3 ? `${activeTab}일차` : '...'}
           </button>
           {dropdownVisible && (
-            <div className="absolute w-24 z-10 mt-2">
-              {Array.from({ length: diffDays - 5 }, (_, i) => i + 6).map(
+            <div className="fixed bg-white w-24 z-10 mt-2 rounded-2xl max-h-48 overflow-y-auto">
+              {Array.from({ length: diffDays - 3 }, (_, i) => i + 4).map(
                 (day) => (
                   <button
                     key={day}
-                    className={`block w-full my-1 px-4 py-2 bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-xs mr-2 opacity-50 hover:opacity-100 ${activeTab === day ? 'opacity-100' : 'opacity-50'
-                      }`}
-                    onClick={() => handleTabClick(day)}
+                    className={`block w-full my-1 px-4 py-2 bg-[#FF9A9A] rounded-2xl text-white font-['BMJUA'] text-sm ${activeTab === day ? 'opacity-100' : 'opacity-50'
+                      } hover:opacity-100`}
+                    onClick={() => {
+                      handleTabClick(day);
+                      setDropdownVisible(false);
+                    }}
                   >
                     {`${day}일차`}
                   </button>
