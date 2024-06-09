@@ -178,15 +178,15 @@ const MyPlanPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-center">
-        <div className="w-11/12 h-full pt-3 pb-5 flex flex-col">
+      <div className="w-full flex justify-center  flex-grow overflow-hidden">
+        <div className="w-11/12 h-full pt-3 pb-5 flex flex-col overflow-hidden">
           <div className="flex justify-between h-7 mb-2">
             <div className="flex items-center">{generateTabs()}</div>
           </div>
           {Array.from({ length: diffDays }, (_, index) => (
-            <div key={index}>
+            <div key={index} className="flex flex-grow overflow-hidden">
               {activeTab === index + 1 && (
-                <div>
+                <div className="flex-col flex-1 overflow-y-auto h-full">
                   {planData
                     .filter(
                       (data) =>
