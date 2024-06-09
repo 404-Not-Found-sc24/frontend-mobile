@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMap } from '../context/MapContext';
 
 declare global {
@@ -12,26 +12,52 @@ interface MapProps {
     longitude: number;
 }
 
-const SmallMap: React.FC<MapProps> = ({latitude, longitude}) => {
+const SmallMap: React.FC<MapProps> = ({ latitude, longitude }) => {
+    const [isKakaoMapLoaded, setIsKakaoMapLoaded] = useState<boolean>(false);
 
     useEffect(() => {
-        const container = document.getElementById('map');
-        const options = {
-          center: new window.kakao.maps.LatLng(latitude, longitude),
-          level: 3
+        const loadKakaoMap = () => {
+            if (window.kakao && window.kakao.maps) {
+                setIsKakaoMapLoaded(true);
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_KEY}&autoload=false`;
+            script.async = true;
+
+            script.onload = () => {
+                window.kakao.maps.load(() => {
+                    setIsKakaoMapLoaded(true);
+                });
+            };
+
+            document.head.appendChild(script);
         };
-    
-        const map = new window.kakao.maps.Map(container, options);
 
-        const markerPosition = new window.kakao.maps.LatLng(latitude, longitude);
+        loadKakaoMap();
+    }, []);
 
-        const marker = new window.kakao.maps.Marker({
-            position: markerPosition
-        });
+    useEffect(() => {
+        if (isKakaoMapLoaded) {
+            const container = document.getElementById('map');
+            if (container) {
+                const options = {
+                    center: new window.kakao.maps.LatLng(latitude, longitude),
+                    level: 3
+                };
 
-        marker.setMap(map);
-      }, []);
+                const map = new window.kakao.maps.Map(container, options);
 
+                const markerPosition = new window.kakao.maps.LatLng(latitude, longitude);
+                const marker = new window.kakao.maps.Marker({
+                    position: markerPosition
+                });
+
+                marker.setMap(map);
+            }
+        }
+    }, [isKakaoMapLoaded, latitude, longitude]);
     return <div id="map" className="w-[80%] h-full"></div>;
 };
 
