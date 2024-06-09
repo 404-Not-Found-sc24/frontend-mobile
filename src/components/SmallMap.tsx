@@ -17,7 +17,6 @@ const SmallMap: React.FC<MapProps> = ({ latitude, longitude }) => {
 
     useEffect(() => {
         console.log("api: ", process.env.REACT_APP_KAKAO_MAP_API_KEY)
-
         const container = document.getElementById('map');
         if (container) {
             const options = {
