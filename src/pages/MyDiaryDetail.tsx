@@ -112,12 +112,12 @@ const MyDiaryDetail: React.FC = () => {
 
   const initialMarkers = PlanData
     ? [
-      {
-        placeId: PlanData.placeId,
-        latitude: PlanData.latitude,
-        longitude: PlanData.longitude,
-      },
-    ]
+        {
+          placeId: PlanData.placeId,
+          latitude: PlanData.latitude,
+          longitude: PlanData.longitude,
+        },
+      ]
     : [];
 
   const initialCenter = PlanData
@@ -206,7 +206,7 @@ const MyDiaryDetail: React.FC = () => {
           </div>
         </div>
         {!isBeforeStartDate && (
-          <div className="w-[25%] mr-5">
+          <div className="w-[30%] mr-5">
             {Diarydata ? (
               <button
                 onClick={navieditdiary}
@@ -259,13 +259,13 @@ const MyDiaryDetail: React.FC = () => {
                 <div className="flex flex-col h-[60%]">
                   <div className="flex justify-center flex-col m-3 h-28">
                     {Diarydata.imageUrl.length != 0 ? (
-                    <div className="flex justify-center">
-                      <img
-                        src={Diarydata.imageUrl}
-                        className="h-28 w-fit"
-                        alt="사진이없습니다."
-                      />
-                    </div>
+                      <div className="flex justify-center">
+                        <img
+                          src={Diarydata.imageUrl}
+                          className="h-28 w-fit"
+                          alt="사진이없습니다."
+                        />
+                      </div>
                     ) : (
                       <div className="w-[100%] h-28 flex items-center justify-center border">
                         <div className="text-center text-main-green-color font-bold font-BMJUA text-md">
@@ -273,7 +273,6 @@ const MyDiaryDetail: React.FC = () => {
                         </div>
                       </div>
                     )}
-
                   </div>
                   <div className="mx-5 my-3 h-10">
                     <div className="flex justify-between">
@@ -289,9 +288,11 @@ const MyDiaryDetail: React.FC = () => {
                   </div>
                   <div className="mx-5 flex flex-col h-[35%]">
                     <div className="font-['Nanum Gothic'] overflow-y-auto mb-3">
-                      {PlanData.content.split('\n').map((line: string, index: number) => (
-                        <div key={index}>{line}</div>
-                      ))}
+                      {PlanData.content
+                        .split('\n')
+                        .map((line: string, index: number) => (
+                          <div key={index}>{line}</div>
+                        ))}
                     </div>
                   </div>
                 </div>
@@ -312,13 +313,13 @@ const MyDiaryDetail: React.FC = () => {
                 <div className="w-full flex justify-center">
                   <div className="w-[80%] flex justify-between">
                     <button
-                      className=" h-8 w-[45%] font-white m-1 bg-[#FEE500] font-['Nanum Gothic']"
+                      className=" h-8 w-[45%] font-white m-1 bg-[#FEE500] font-['Nanum Gothic'] text-sm"
                       onClick={handleLinkMap}
                     >
                       지도 바로가기
                     </button>
                     <button
-                      className=" h-8 w-[45%] font-white m-1 bg-[#FEE500] font-['Nanum Gothic']"
+                      className=" h-8 w-[45%] font-white m-1 bg-[#FEE500] font-['Nanum Gothic'] text-sm"
                       onClick={handleLinkKakao}
                     >
                       길찾기 바로가기
